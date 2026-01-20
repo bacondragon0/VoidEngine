@@ -8,10 +8,12 @@ import OpenGL.GLUT as GLUT
 screen_size = [500, 500]
 
 x2 = Circle(250,250,25,64)
-x2.InitConditions([250,250],[-12,20])
+x2.InitConditions([300,250],[12,20])
 
 x3 = Circle(250,250,25,64)
-x3.InitConditions([250,250],[12,-20])
+x3.InitConditions([150,250],[12,20])
+
+objects = [x2,x3]
 
 def display():
     GL.glClear(GL.GL_COLOR_BUFFER_BIT)
@@ -25,6 +27,8 @@ def display():
     GL.glFlush()
 
 def update(value):
+
+    collisions()
 
     x2.ApplyForces()
     x3.ApplyForces()
@@ -40,6 +44,18 @@ def reshape(width, height):
     GL.glLoadIdentity()
     GL.glOrtho(0, width, 0, height, -1, 1)
 
+def collisions():
+    for i in range(len(objects)):
+        a = objects[i]
+
+        for j in range(i,len(objects)):
+            b = objects[j]
+
+            if math.dist(a.position, b.position) < (a.radius + b.radius):
+                a.velocity[0] *= -1
+                a.velocity[1] *= -1
+                b.velocity[0] *= -1
+                b.velocity[1] *= -1
 
 def main():
     GLUT.glutInit()

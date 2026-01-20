@@ -41,7 +41,6 @@ class Circle:
 
         restitution = 0.95
         # Border Collision Force
-
         # X
         if self.position[0] - self.radius < 0:
             self.position[0] = self.radius
