@@ -1,12 +1,12 @@
-screen_size = [500, 500]
+screen_size = [1000, 750]
 
 import math
 import OpenGL.GL as GL
 import OpenGL.GLUT as GLUT
 
-class Circle:
+class Particle:
 
-    def __init__(self,centerX,centerY,radius,resolution):
+    def __init__(self,centerX,centerY,radius,mass,resolution=64):
         
         self.position = [0, 0]
         self.velocity = [0, 0]
@@ -14,6 +14,7 @@ class Circle:
         self.centerX = centerX
         self.centerY = centerY
         self.radius = radius
+        self.mass = mass
         self.resolution = resolution
     
     def Draw(self):
@@ -30,16 +31,20 @@ class Circle:
         
         GL.glEnd()
 
+    def ApplyAcceleration(self,x,y):
+        self.velocity[0] = self.velocity[0] + x
+        self.velocity[1] = self.velocity[1] + y
 
-    def ApplyForces(self):
+    def ApplyDefaultForces(self):
 
         self.position[0] = self.position[0] + self.velocity[0]
         self.position[1] = self.position[1] + self.velocity[1]
         
         # Gravity Force
-        self.velocity[1] = self.velocity[1] -9.81 / 20
+        # self.velocity[1] = self.velocity[1] -9.81 / 20
 
         restitution = 0.95
+
         # Border Collision Force
         # X
         if self.position[0] - self.radius < 0:
