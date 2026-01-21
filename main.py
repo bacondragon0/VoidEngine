@@ -8,15 +8,12 @@ import OpenGL.GLUT as GLUT
 screen_size = [1000, 750]
 
 x1 = Particle(250,250,2,10)
-x1.InitConditions([screen_size[0]*1/4,screen_size[1]*3/4],[1,0])
+x1.InitConditions([screen_size[0] // 2,screen_size[1]*3/4],[10,0])
 
-x2 = Particle(250,250,3,1000)
+x2 = Particle(250,250,3,1000*2)
 x2.InitConditions([screen_size[0] //2 ,screen_size[1] // 2],[0,0])
 
-x3 = Particle(250,250,2,10)
-x3.InitConditions([screen_size[0]*3/4 ,screen_size[1]*1/4],[-1,0])
-
-objects = [x1,x2,x3]
+objects = [x1,x2]
 
 def display():
     GL.glClear(GL.GL_COLOR_BUFFER_BIT)
@@ -30,9 +27,11 @@ def display():
     GL.glFlush()
 
 def update(value):
-    Force.Collision(objects)
-    Force.Gravity(objects)
-    Force.Kinetic(objects)
+    delta_time = 1.0 / 60.0
+
+    Force.Collision(objects,delta_time)
+    Force.Gravity(objects,delta_time)
+    Force.Kinetic(objects,delta_time)
     Force.WallBounce(objects)
 
     # Advance Frame
