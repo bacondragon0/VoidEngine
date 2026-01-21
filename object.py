@@ -43,24 +43,24 @@ class Particle:
         # Gravity Force
         # self.velocity[1] = self.velocity[1] -9.81 / 20
 
-        restitution = 0.95
+        fBounce = 0.95
 
         # Border Collision Force
         # X
         if self.position[0] - self.radius < 0:
             self.position[0] = self.radius
-            self.velocity[0] = abs(self.velocity[0]) * restitution
+            self.velocity[0] = abs(self.velocity[0]) * fBounce
         elif self.position[0] + self.radius > screen_size[0]:
             self.position[0] = screen_size[0] - self.radius
-            self.velocity[0] = -abs(self.velocity[0]) * restitution
+            self.velocity[0] = -abs(self.velocity[0]) * fBounce
 
         # Y
         if self.position[1] - self.radius < 0:
             self.position[1] = self.radius
-            self.velocity[1] = abs(self.velocity[1]) * restitution
+            self.velocity[1] = abs(self.velocity[1]) * fBounce
         elif self.position[1] + self.radius > screen_size[1]:
             self.position[1] = screen_size[1] - self.radius
-            self.velocity[1] = -abs(self.velocity[1]) * restitution
+            self.velocity[1] = -abs(self.velocity[1]) * fBounce
 
     def InitConditions(self,init_position,init_velocity):
 
