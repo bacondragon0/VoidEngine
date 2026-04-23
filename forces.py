@@ -1,12 +1,13 @@
 import object
 import math
+import config
 import OpenGL.GL as GL
 import OpenGL.GLUT as GLUT
 
 G = 2000
 fBounce = 0.95
 unit_scale = 0.1
-screen_size = [1000, 750]
+screen_size = config.screen_size
 
 class Force:
     def __init__(self):
@@ -69,11 +70,8 @@ class Force:
 
                 a_x = (gForce / a.mass) * n_x
                 a_y = (gForce / a.mass) * n_y
-                b_x = -(gForce / b.mass) * n_x 
-                b_y = -(gForce / b.mass) * n_y 
+                b_x = -(gForce / b.mass) * n_x
+                b_y = -(gForce / b.mass) * n_y
 
                 a.ApplyAcceleration(a_x*delta,a_y*delta)
                 b.ApplyAcceleration(b_x*delta,b_y*delta)
-
-        
-    
